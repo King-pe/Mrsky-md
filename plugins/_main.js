@@ -152,49 +152,10 @@ smd({
   filename: __filename
 }, async (_0x5cb388, _0x302ad5) => {
   try {
-    try {
-      let _0x557719 = _0x302ad5 ? _0x302ad5 : bot.reply_text;
-      if (!_0x557719) {
-        return man.reply("Provide me a query ex Who is mrsky");
-      }
-      const _0x50c8d3 = await fetch("https://aemt.me/openai?text=" + _0x557719);
-      const _0x14c9d6 = await _0x50c8d3.json();
-      if (_0x14c9d6 && _0x14c9d6.status && _0x14c9d6.result) {
-        return await _0x5cb388.reply(_0x14c9d6.result);
-      }
-    } catch {}
-    if (Config.OPENAI_API_KEY == "" || !Config.OPENAI_API_KEY || !("" + Config.OPENAI_API_KEY).startsWith("sk")) {
-      return _0x5cb388.reply("```You Dont Have OPENAI API KEY \nPlease Create OPEN API KEY from Given Link \nhttps://platform.openai.com/account/api-keys\nAnd Set Key in Heroku OPENAI_API_KEY Var```");
-    }
-    if (!_0x302ad5) {
-      return _0x5cb388.reply("Hey there! " + _0x5cb388.senderName + ". How are you doing these days?");
-    }
-    return _0x5cb388.send(await aiResponce(_0x5cb388, "gpt", _0x302ad5));
+    const language = "sw"; // Add language parameter here, e.g., "sw" for Swahili
+    return _0x5cb388.send(await aiResponce(_0x5cb388, "gpt", _0x302ad5, language));
   } catch (_0x2ef914) {
     await _0x5cb388.error(_0x2ef914 + "\n\ncommand: gpt", _0x2ef914, "*_Sorry your message no answers from the Mrsky gpt, Sorry!!!_*");
-  }
-});
-smd({
-  pattern: "Kgpt",
-  desc: "chat with an AI",
-  category: "ai",
-  use: "<query>",
-  filename: __filename
-}, async (_0x42b3b8, _0x3f3887) => {
-  try {
-    let _0x1b0897 = _0x3f3887 ? _0x3f3887 : _0x42b3b8.reply_text;
-    if (!_0x1b0897) {
-      return _0x42b3b8.reply("Provide me a query ex Who is mrsky");
-    }
-    const _0x4c275e = await fetch("https://aemt.me/openai?text=" + _0x1b0897);
-    const _0x4743c3 = await _0x4c275e.json();
-    if (_0x4743c3 && _0x4743c3.status && _0x4743c3.result) {
-      return await _0x42b3b8.send(_0x4743c3.result);
-    } else {
-      await _0x42b3b8.send("*_Error while getting gpt responce!!_*");
-    }
-  } catch (_0x70fc81) {
-    await _0x42b3b8.error(_0x70fc81 + "\n\ncommand: Kgpt", _0x70fc81, "*_Sorry your message no answers from the Mrsky fgpt, Sorry! !!!_*");
   }
 });
 smd({
@@ -337,6 +298,7 @@ async function Draw(_0x3ab488) {
   const _0x1c59a6 = await _0x54c8a4.arrayBuffer();
   return Buffer.from(_0x1c59a6);
 }
+
 smd({
   pattern: "removebg",
   alias: ["rmbg"],
@@ -370,6 +332,8 @@ smd({
     await _0x28a796.error(_0x166d80 + "\n\ncommand: removebg", _0x166d80, "*_No responce from Mrsky remove.bg, Sorry!!_*");
   }
 });
+
+
 smd({
   pattern: "rmore",
   alias: ["readmore", "readmor"],
