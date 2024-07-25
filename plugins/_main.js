@@ -51,12 +51,13 @@ function _0x2953() {
     }
   }
 })(_0x2953, 305050);
-async function aiResponce(_0x109acf, _0xf00650, _0x2728a0 = "") {
+async function aiResponce(_0x109acf, _0xf00650, _0x2728a0 = "", _0xlanguage = "en") {
   const _0x242f00 = _0x2a0d;
   let _0x2d78d9 = "";
   try {
     if (_0xf00650 === _0x242f00(243)) {
-      _0x2d78d9 = await (await axios[_0x242f00(266)](_0x242f00(244) + _0x109acf[_0x242f00(258)][_0x242f00(234)]("@")[0] + _0x242f00(233) + _0x2728a0 + "]"))[_0x242f00(251)].cnt;
+      // Example API call for Brainshop.ai - modify as needed
+      _0x2d78d9 = await (await axios[_0x242f00(266)](_0x242f00(244) + _0x109acf[_0x242f00(258)][_0x242f00(234)]("@")[0] + _0x242f00(233) + _0x2728a0 + "]&lang=" + _0xlanguage))[_0x242f00(251)].cnt;
     } else if (_0xf00650 === _0x242f00(237)) {
       const _0x3e1043 = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
@@ -71,7 +72,8 @@ async function aiResponce(_0x109acf, _0xf00650, _0x2728a0 = "") {
             content: _0x242f00(236)
           }, {
             role: "user",
-            content: _0x2728a0
+            content: _0x2728a0,
+            language: _0xlanguage  // Add language here
           }]
         })
       });
@@ -81,7 +83,14 @@ async function aiResponce(_0x109acf, _0xf00650, _0x2728a0 = "") {
       } else {
         _0x2d78d9 = _0x26c61c[_0x242f00(240)][0][_0x242f00(253)][_0x242f00(269)];
       }
-    } else if (_0xf00650 === _0x242f00(262)) {
+    }
+    // Add similar handling for other cases like 'dalle' and 'removebg'
+    return _0x2d78d9;
+  } catch (_0x4eee67) {
+    console[_0x242f00(261)](_0x242f00(255), _0x4eee67);
+    return _0x242f00(273);
+  }
+} else if (_0xf00650 === _0x242f00(262)) {
       const _0x1a4db1 = await fetch(_0x242f00(272), {
         method: _0x242f00(267),
         headers: {
