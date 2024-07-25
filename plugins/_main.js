@@ -16,6 +16,9 @@ const {
   createUrl
 } = require("../lib");
 const axios = require("axios");
+const fs = require('fs');
+const { TelegraPh } = require('./telegraph'); // Assuming you have a TelegraPh function for uploading images
+const Config = require('./config'); // Assuming you have a Config file for storing your API keys
 const fetch = require("node-fetch");
 const os = require("os");
 const speed = require("performance-now");
@@ -305,35 +308,65 @@ smd({
   category: "ai",
   filename: __filename,
   desc: "Remove image Background."
-}, async _0x28a796 => {
+}, async (_0x28a796) => {
   try {
     if (!Config.REMOVE_BG_KEY) {
-      return _0x28a796.reply("```You Dont Have REMOVE_BG_KEY \nPlease Create RemoveBG KEY from Given Link \nhttps://www.remove.bg/\nAnd Set Key in REMOVE_BG_KEY Var```");
+      return _0x28a796.reply("```You don't have a REMOVE_BG_KEY.\nPlease create a RemoveBG key from the given link: https://www.remove.bg/\nAnd set the key in the REMOVE_BG_KEY variable.```");
     }
-    let _0x536d9f = ["imageMessage"];
-    let _0x4f2076 = _0x536d9f.includes(_0x28a796.mtype) ? _0x28a796 : _0x28a796.reply_message;
-    if (!_0x4f2076 || !_0x536d9f.includes(_0x4f2076?.mtype || "null")) {
-      return await _0x28a796.send("*_Uhh Dear, Reply to an image_*");
+
+    let validTypes = ["imageMessage"];
+    let message = validTypes.includes(_0x28a796.mtype) ? _0x28a796 : _0x28a796.reply_message;
+
+    if (!message || !validTypes.includes(message?.mtype || "null")) {
+      return await _0x28a796.send("*_Please reply to an image_*");
     }
-    let _0x437dc5 = await _0x28a796.bot.downloadAndSaveMediaMessage(_0x4f2076);
-    let _0x4dcaa0 = await TelegraPh(_0x437dc5);
-    try {
-      fs.unlinkSync(_0x437dc5);
-    } catch {}
-    let _0x9b86dd = await aiResponce(_0x28a796, "removebg", _0x4dcaa0);
-    if (_0x9b86dd) {
-      await _0x28a796.send(_0x9b86dd, {
+
+    let filePath = await _0x28a796.bot.downloadAndSaveMediaMessage(message);
+    let uploadedImage = await TelegraPh(filePath);
+
+    // Delete the temporary file
+    fs.unlinkSync(filePath);
+
+    let response = await removeBackground(uploadedImage);
+
+    if (response) {
+      await _0x28a796.send(response, {
         caption: Config.caption
-      }, "image/jpg", _0x28a796);
+      }, "image", _0x28a796);
     } else {
-      await _0x28a796.send("*_Request not be preceed!!_*");
+      await _0x28a796.send("*_Request could not be processed_*");
     }
-  } catch (_0x166d80) {
-    await _0x28a796.error(_0x166d80 + "\n\ncommand: removebg", _0x166d80, "*_No responce from Mrsky remove.bg, Sorry!!_*");
+  } catch (error) {
+    await _0x28a796.error(error.message + "\n\ncommand: removebg", error, "*_No response from RemoveBG, sorry!_*");
   }
 });
 
+/**
+ * Function to remove the background from an image using RemoveBG API
+ * @param {string} imageUrl - The URL of the image to process
+ * @returns {Promise<string>} - The URL of the processed image
+ */
+async function removeBackground(imageUrl) {
+  try {
+    const response = await axios.post('https://api.remove.bg/v1.0/removebg', {
+      image_url: imageUrl,
+      size: 'auto'
+    }, {
+      headers: {
+        'X-Api-Key': Config.REMOVE_BG_KEY
+      },
+      responseType: 'arraybuffer'
+    });
 
+    const outputPath = 'output.jpg';
+    fs.writeFileSync(outputPath, response.data);
+
+    return outputPath; // Return the path to the processed image
+  } catch (error) {
+    console.error('Error removing background:', error);
+    return null;
+  }
+}
 smd({
   pattern: "rmore",
   alias: ["readmore", "readmor"],
