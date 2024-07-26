@@ -161,6 +161,9 @@ smd({
     await _0x5cb388.error(_0x2ef914 + "\n\ncommand: gpt", _0x2ef914, "*_Sorry your message no answers from the Mrsky gpt, Sorry!!!_*");
   }
 });
+
+
+    
 smd({
   pattern: "dall-e",
   alias: ["dall", "dalle"],
@@ -494,8 +497,8 @@ smd({
   try {
     let {
       data: _0x44f98c
-    } = await axios.get("https://api.github.com/repos/mrsky-cyber/MRSKY-MD");
-    let _0x1c73f9 = ("\nMRSKY-MD AN CHUDDY BUDDY BOT FOR ENJOYMENT *" + Config.ownername + "*.\n\n  *❲🔥❳ Stars:* " + (_0x44f98c?.stargazers_count || "120+") + " stars\n  *❲🔥❳ Forks:* " + (_0x44f98c?.forks_count || "1000+") + " forks\n  *❲🔥❳ Authors:* Mrsky-tech\n  *❲🔥❳ Created On:* " + (_0x44f98c?.created_at || "undefined") + "\n  *❲🔥❳ Repo:* _https://github.com/mrsky-cyber/Mrsky-md_\n  *❲🔥❳ Scan:* _" + scan + "_" + (Config.caption ? "\n\n" + Config.caption : "")).trim();
+    } = await axios.get("https://api.github.com/repos/King-pe/MRSKY-MD");
+    let _0x1c73f9 = ("\nMRSKY-MD AN CHUDDY BUDDY BOT FOR ENJOYMENT *" + Config.ownername + "*.\n\n  *❲🔥❳ Stars:* " + (_0x44f98c?.stargazers_count || "120+") + " stars\n  *❲🔥❳ Forks:* " + (_0x44f98c?.forks_count || "1000+") + " forks\n  *❲🔥❳ Authors:* Mrsky-tech\n  *❲🔥❳ Created On:* " + (_0x44f98c?.created_at || "undefined") + "\n  *❲🔥❳ Repo:* _https://github.com/King-pe/Mrsky-md_\n  *❲🔥❳ Scan:* _" + scan + "_" + (Config.caption ? "\n\n" + Config.caption : "")).trim();
     return await _0x45da98.sendUi(_0x45da98.jid, {
       caption: _0x1c73f9
     });
